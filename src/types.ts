@@ -7,8 +7,8 @@
 // }
 
 export interface IPlace {
-  name: string;
   id: number;
+  name: string;
   address: string;
   opening_hours: string;
   contact: string;
@@ -16,13 +16,13 @@ export interface IPlace {
   photos: string[];
   price: number;
   rating: number;
-  types?: string[];
+  placeType?: string[];
   description?: string;
 }
 
 export interface IPlaceInfo {
-  name: string;
   id: number;
+  name: string;
   address: string;
   opening_hours: string;
   contact: string;
@@ -31,7 +31,7 @@ export interface IPlaceInfo {
   photos: string[];
   price: number;
   rating: number;
-  types?: string[];
+  placeType?: string[];
   description?: string;
 }
 

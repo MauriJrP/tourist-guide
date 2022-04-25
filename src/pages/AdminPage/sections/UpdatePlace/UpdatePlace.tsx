@@ -8,7 +8,7 @@ interface IFormData {
   address: string;
   openingHours: string;
   contact: string;
-  cedula: string;
+  placeCode: string;
   manager?: string;
   price: number;
   adminCode: string;
@@ -17,13 +17,13 @@ interface IFormData {
   photos: string[];
 }
 
-export default function AddPlace() {
+export default function UpdatePlace() {
   const [formData, setFormData] = useState<IFormData>({
     name: '',
     address: '',
     openingHours: '',
     contact: '',
-    cedula: '',
+    placeCode: '',
     manager: '',
     price: 0,
     adminCode: '',
@@ -77,9 +77,9 @@ export default function AddPlace() {
                 <TextField
                   required
                   fullWidth
-                  label="Cedula"
-                  name="cedula"
-                  value={formData.cedula}
+                  label="Código del lugar"
+                  name="placeCode"
+                  value={formData.placeCode}
                   onChange={handleInputChange}
                 />
               </Grid>
@@ -167,36 +167,9 @@ export default function AddPlace() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Agregar Lugar
+              Actualizar Informacion
             </Button>
       </Box>
     </>
   )
 }
-
-// Nombre -------
-// Direccion -------
-// Horario -------
-// Contacto -------
-// Cedula -------
-// Gerente -------
-// Precio -------
-// Codigo de administrador -------
-// Tipos -------
-// Descripcion -------
-// Fotos
-
-// export interface IPlaceInfo {
-//   name: string;
-//   id: number;
-//   address: string;
-//   opening_hours: string;
-//   contact: string;
-//   cedula: string;
-//   manager?: string;
-//   photos: string[];
-//   price: number;
-//   rating: number;
-//   types?: string[];
-//   description?: string;
-// }

@@ -1,8 +1,6 @@
 import { MenuItem, Rating, TextField, Grid, Button } from '@mui/material';
 import { useState } from 'react';
-
-const types = ["Comida", "Cultural", "Deportivo", "Natural", "Salud", "Autoservicio", "Souvenirs"]
-const locations = ["Guadalajara", "Zapopan", "Tlaquepaque", "Tonalá"]
+import {placeTypes as types, locations} from '../../../data'
 
 interface IFormData {
   type?: string;

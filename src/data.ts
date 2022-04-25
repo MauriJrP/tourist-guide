@@ -17,7 +17,7 @@ export const places: IPlace[] = [
       "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fhicarquitectura.com%2Fwp-content%2Fuploads%2F2012%2F12%2FCasa-de-cultura-i-biblioteca_1.jpg&f=1&nofb=1"],
     price: 0,
     rating: 4,
-    types: ['Cultura', 'Arte', 'Concierto'],
+    placeType: ['Cultura', 'Arte', 'Concierto'],
     description: 'Casa de la Cultura es una de las casas de cultura más importantes de la ciudad de Madrid. Fue fundada en 1892 por el arquitecto y diseñador francés Antoine de Saint-Exupéry, y actualmente es el museo de la cultura de la ciudad. La casa de la cultura es uno de los principales centros culturales de la ciudad, y es uno de los lugares más visitados de la ciudad. La casa de la cultura es uno de los principales centros culturales de la ciudad, y es uno de los lugares más visitados de la ciudad.'
   },
   {
@@ -33,7 +33,7 @@ export const places: IPlace[] = [
       "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fhicarquitectura.com%2Fwp-content%2Fuploads%2F2012%2F12%2FCasa-de-cultura-i-biblioteca_1.jpg&f=1&nofb=1"],
     price: 0,
     rating: 4,
-    types: ['Cultura', 'Arte', 'Concierto'],
+    placeType: ['Cultura', 'Arte', 'Concierto'],
     description: 'Casa de la Cultura es una de las casas de cultura más importantes de la ciudad de Madrid. Fue fundada en 1892 por el arquitecto y diseñador francés Antoine de Saint-Exupéry, y actualmente es el museo de la cultura de la ciudad. La casa de la cultura es uno de los principales centros culturales de la ciudad, y es uno de los lugares más visitados de la ciudad. La casa de la cultura es uno de los principales centros culturales de la ciudad, y es uno de los lugares más visitados de la ciudad.'
   },
   {
@@ -49,7 +49,7 @@ export const places: IPlace[] = [
       "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fhicarquitectura.com%2Fwp-content%2Fuploads%2F2012%2F12%2FCasa-de-cultura-i-biblioteca_1.jpg&f=1&nofb=1"],
     price: 0,
     rating: 4,
-    types: ['Cultura', 'Arte', 'Concierto'],
+    placeType: ['Cultura', 'Arte', 'Concierto'],
     description: 'Casa de la Cultura es una de las casas de cultura más importantes de la ciudad de Madrid. Fue fundada en 1892 por el arquitecto y diseñador francés Antoine de Saint-Exupéry, y actualmente es el museo de la cultura de la ciudad. La casa de la cultura es uno de los principales centros culturales de la ciudad, y es uno de los lugares más visitados de la ciudad. La casa de la cultura es uno de los principales centros culturales de la ciudad, y es uno de los lugares más visitados de la ciudad.'
   },
   {
@@ -65,7 +65,7 @@ export const places: IPlace[] = [
       "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fhicarquitectura.com%2Fwp-content%2Fuploads%2F2012%2F12%2FCasa-de-cultura-i-biblioteca_1.jpg&f=1&nofb=1"],
     price: 0,
     rating: 4,
-    types: ['Cultura', 'Arte', 'Concierto'],
+    placeType: ['Cultura', 'Arte', 'Concierto'],
     description: 'Casa de la Cultura es una de las casas de cultura más importantes de la ciudad de Madrid. Fue fundada en 1892 por el arquitecto y diseñador francés Antoine de Saint-Exupéry, y actualmente es el museo de la cultura de la ciudad. La casa de la cultura es uno de los principales centros culturales de la ciudad, y es uno de los lugares más visitados de la ciudad. La casa de la cultura es uno de los principales centros culturales de la ciudad, y es uno de los lugares más visitados de la ciudad.'
   },
 ]
@@ -115,3 +115,7 @@ export const users: IUser[] = [
     age: 18
   },
 ]
+
+export const placeTypes: string[] = ["Comida", "Cultural", "Deportivo", "Natural", "Salud", "Autoservicio", "Souvenirs"]
+
+export const locations: string[] = ["Guadalajara", "Zapopan", "Tlaquepaque", "Tonalá"]
