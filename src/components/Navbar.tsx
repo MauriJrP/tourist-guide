@@ -4,10 +4,13 @@ import Account from "./Account"
 
 export default function Navbar() {
   const navigate = useNavigate();
+  let admin = true;
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const name = (e.target as HTMLButtonElement).name
-    name === "Home" ? navigate("/home") : navigate("/my-list")
+    if (name === "Home") navigate("/home")
+    else if (name === "MyList") navigate("/my-list")
+    else if (name === "Admin") navigate("/admin")
   };
 
   return (
@@ -19,6 +22,7 @@ export default function Navbar() {
         </Link>
       </div>
       <ButtonGroup variant="text" aria-label="text button group">
+        {admin && <Button className="text-white" onClick={handleClick} name="Admin">Admin</Button>}
         <Button className="text-white" onClick={handleClick} name="Home">Inicio</Button>
         <Button className="text-white" onClick={handleClick} name="MyList">Mi Lista</Button>
         <Account />

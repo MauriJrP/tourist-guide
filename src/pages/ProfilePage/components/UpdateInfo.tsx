@@ -8,13 +8,14 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
-import {IconButton, Rating, TextField} from '@mui/material';
+import {Box, Grid, TextField} from '@mui/material';
 import GradeIcon from '@mui/icons-material/Grade';
 import {IUser} from '../../../types';
 
 interface IFormData {
-  rating: number;
-  comment: string;
+  name: string;
+  email: string;
+  password: string;
 }
 
 interface IProps {
@@ -33,8 +34,9 @@ const Transition = React.forwardRef(function Transition(
 export default function UpdateInfo({user}: IProps) {
   const [open, setOpen] = React.useState(false);
   const [formData, setformData] = useState<IFormData>({
-    rating: 0,
-    comment: '',
+    name: '',
+    email: '',
+    password: '',
   })
 
   const handleClickOpen = () => {
@@ -53,13 +55,11 @@ export default function UpdateInfo({user}: IProps) {
     }));
   };
 
-  const handleRatingChange = (event: React.SyntheticEvent<Element, Event>, newValue: number | null) => {
-    if (newValue) {
-    setformData((prevState: IFormData) => ({
-      ...prevState,
-      rating: newValue
-    }));
-  }
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    handleClose()
+    // console.log(formData)
   };
 
   return (
@@ -74,8 +74,47 @@ export default function UpdateInfo({user}: IProps) {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Retroalimentación"}</DialogTitle>
+        <DialogTitle>{"Información"}</DialogTitle>
         <DialogContent className="flex flex-col">
+        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  autoComplete="given-name"
+                  name="firstName"
+                  required
+                  fullWidth
+                  label="Nombre(s)"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  label="Correo electrónico"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Contraseña"
+                  type="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  autoComplete="new-password"
+                />
+              </Grid>
+            </Grid>
+          </Box>
         {/* <p>Valoración</p>
             <Rating
               name="simple-controlled"
