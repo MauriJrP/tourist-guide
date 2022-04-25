@@ -12,19 +12,42 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {Link as RouterLink, useNavigate} from 'react-router-dom';
 
 import Copyright from '../../components/Copyright';
 
 const theme = createTheme();
 
+interface IFormData {
+  email: string;
+  password: string;
+}
+
 export default function SignIn() {
+  const [formData, setFormData] = React.useState<IFormData>({
+    email: '',
+    password: '',
+  });
+  const navigate = useNavigate()
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormData((prevState: IFormData) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    console.log(formData)
+    navigate('/home')
+    // const data = new FormData(event.currentTarget);
+    // console.log(data)
+    // console.log({
+    //   email: data.get('email'),
+    //   password: data.get('password'),
+    // });
   };
 
   return (
@@ -50,11 +73,12 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              id="email"
               label="Correo electrónico"
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={handleInputChange}
+              value={formData.email}
             />
             <TextField
               margin="normal"
@@ -63,8 +87,9 @@ export default function SignIn() {
               name="password"
               label="Contraseña"
               type="password"
-              id="password"
               autoComplete="current-password"
+              onChange={handleInputChange}
+              value={formData.password}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -85,7 +110,7 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/register" variant="body2">
+                <Link component={RouterLink} to="/sign-up" variant="body2">
                   {"¿No tienes cuenta? Regístrate"}
                 </Link>
               </Grid>

@@ -3,12 +3,17 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				primary: '#388E3C',
-				accent: '#003B84',
-				greenLight: '#E6F7EA',
-				secondary: '#536DFE',
+				primary: '#fff',
+				secondary: '#235B4E',
+				ternary: '#13322B',
+				navbar: '#0C231E',
+			},
+			height: {
+				128: '32rem',
+				192: '48rem',
 			},
 		},
 	},
 	plugins: [],
+	important: true,
 };
