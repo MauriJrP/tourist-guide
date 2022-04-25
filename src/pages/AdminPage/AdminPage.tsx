@@ -10,6 +10,9 @@ export default function AdminPage() {
           <NavLink to="add-place" className={({ isActive }) => isActive ? 'text-black ' : 'hover:text-gray-500'}>Agregar Lugar</NavLink>
         </Button>
         <Button>
+          <NavLink to="update-place" className={({ isActive }) => isActive ? 'text-black ' : 'hover:text-gray-500'}>Actualizar Lugar</NavLink>
+        </Button>
+        <Button>
           <NavLink to="remove-place" className={({ isActive }) => isActive ? 'text-black ' : 'hover:text-gray-500'}>Eliminar Lugar</NavLink>
         </Button>
         <Button>

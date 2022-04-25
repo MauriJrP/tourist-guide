@@ -16,7 +16,7 @@ export interface IPlace {
   photos: string[];
   price: number;
   rating: number;
-  types?: string[];
+  placeType?: string[];
   description?: string;
 }
 
@@ -31,7 +31,7 @@ export interface IPlaceInfo {
   photos: string[];
   price: number;
   rating: number;
-  types?: string[];
+  placeType?: string[];
   description?: string;
 }
 

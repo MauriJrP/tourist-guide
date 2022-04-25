@@ -17,7 +17,7 @@ const SignInButton = () => {
 }
 
 export default function BasicMenu() {
-  let loggedIn = true;
+  let loggedIn = false;
 
   return (
     <>
