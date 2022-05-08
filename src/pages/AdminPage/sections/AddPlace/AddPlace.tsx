@@ -1,7 +1,7 @@
-import {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {FormEvent, ChangeEvent} from 'react';
 import {Box, Grid, Button, TextField, MenuItem} from '@mui/material';
-import {placeTypes, locations} from '../../../../data';
+import {placeTypes} from '../../../../data';
+import {useForm} from '../../../../hooks/useForm';
 
 interface IFormData {
   name: string;
@@ -12,45 +12,31 @@ interface IFormData {
   manager?: string;
   price: number;
   adminCode: string;
-  placeType: string[];
+  placeType: string;
   description: string;
   photos: string[];
 }
 
+const initialState = {
+  name: '',
+  address: '',
+  openingHours: '',
+  contact: '',
+  cedula: '',
+  manager: '',
+  price: 0,
+  adminCode: '',
+  placeType: '',
+  description: '',
+  photos: [],
+}
+
 export default function AddPlace() {
-  const [formData, setFormData] = useState<IFormData>({
-    name: '',
-    address: '',
-    openingHours: '',
-    contact: '',
-    cedula: '',
-    manager: '',
-    price: 0,
-    adminCode: '',
-    placeType: [],
-    description: '',
-    photos: [],
-  });
-
-  const navigate = useNavigate();
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormData((prevState: IFormData) => ({
-      ...prevState,
-      [name]: name === "price" ? parseInt(value) : value
-    }));
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log(formData)
-    navigate('/home')
-  };
+  const {formData, handleInputChange, handleSubmit} = useForm<IFormData>(initialState);
 
   return (
     <>
-      <Box component="form"  onSubmit={handleSubmit} sx={{ mt: 3 }}>
+      <Box component="form"  onSubmit={(e: FormEvent<HTMLFormElement>) => handleSubmit(e, '/home')} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={4}>
                 <TextField
@@ -145,7 +131,7 @@ export default function AddPlace() {
                   fullWidth
                   label="Costo"
                   value={formData.price}
-                  onChange={handleInputChange}
+                  onChange={(e:ChangeEvent<HTMLInputElement>) => handleInputChange(e, 'number')}
                   type="number"
                 />
               </Grid>
@@ -185,18 +171,3 @@ export default function AddPlace() {
 // Tipos -------
 // Descripcion -------
 // Fotos
-
-// export interface IPlaceInfo {
-//   name: string;
-//   id: number;
-//   address: string;
-//   opening_hours: string;
-//   contact: string;
-//   cedula: string;
-//   manager?: string;
-//   photos: string[];
-//   price: number;
-//   rating: number;
-//   types?: string[];
-//   description?: string;
-// }

@@ -1,6 +1,7 @@
 import { MenuItem, Rating, TextField, Grid, Button } from '@mui/material';
-import { useState } from 'react';
+import { ChangeEvent } from 'react';
 import {placeTypes as types, locations} from '../../../data'
+import {useForm} from '../../../hooks/useForm';
 
 interface IFormData {
   type?: string;
@@ -9,39 +10,15 @@ interface IFormData {
   rating?: number;
 }
 
+const initialState: IFormData = {
+  type: '',
+  location: '',
+  price: 0,
+  rating: 0,
+}
+
 export default function Searcher() {
-  const [formData, setformData] = useState<IFormData>({
-    type: '',
-    location: '',
-    price: undefined,
-    rating: 0,
-  })
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setformData((prevState: IFormData) => ({
-      ...prevState,
-      [name]: name === "price" || name === "rating" ? parseInt(value) : value
-    }));
-  };
-
-  const handleRatingChange = (event: React.SyntheticEvent<Element, Event>, newValue: number | null) => {
-    if (newValue) {
-    setformData((prevState: IFormData) => ({
-      ...prevState,
-      rating: newValue
-    }));
-  }
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(e.currentTarget);
-  };
-
-  const getValueText = (value: number) => {
-    return `valor${value}`;
-  }
+  const {formData, handleInputChange, handleRatingChange, handleSubmit} = useForm<IFormData>(initialState);
 
   return (
     <form onSubmit={handleSubmit}  >
@@ -82,7 +59,7 @@ export default function Searcher() {
             fullWidth
             label="Máximo"
             value={formData.price}
-            onChange={handleInputChange}
+            onChange={(e:ChangeEvent<HTMLInputElement>)=> handleInputChange(e, 'number')}
             type="number"
           />
         </Grid>

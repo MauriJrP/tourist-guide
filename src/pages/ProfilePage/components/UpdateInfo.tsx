@@ -1,16 +1,8 @@
-import React from 'react';
-import { useState} from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
+import { useState, FormEvent, forwardRef, ReactElement, Ref } from 'react';
+import { useForm } from '../../../hooks/useForm';
+import { Box, Grid, TextField, DialogActions, DialogContent, DialogTitle, Slide, Dialog, Button } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
-import {Box, Grid, TextField} from '@mui/material';
-import GradeIcon from '@mui/icons-material/Grade';
-import {IUser} from '../../../types';
+import { IUser } from '../../../types';
 
 interface IFormData {
   name: string;
@@ -22,22 +14,26 @@ interface IProps {
   user: IUser;
 }
 
-const Transition = React.forwardRef(function Transition(
+
+
+const Transition = forwardRef(function Transition(
   props: TransitionProps & {
-    children: React.ReactElement<any, any>;
+    children: ReactElement<any, any>;
   },
-  ref: React.Ref<unknown>,
+  ref: Ref<unknown>,
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+
 export default function UpdateInfo({user}: IProps) {
-  const [open, setOpen] = React.useState(false);
-  const [formData, setformData] = useState<IFormData>({
-    name: '',
-    email: '',
-    password: '',
-  })
+  const [open, setOpen] = useState(false);
+  const initialState: IFormData = {
+    name: user.name,
+    email: user.email,
+    password: user.password,
+  }
+  const {formData, handleInputChange, handleSubmit} = useForm<IFormData>(initialState);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -45,21 +41,6 @@ export default function UpdateInfo({user}: IProps) {
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setformData((prevState: IFormData) => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    handleClose()
-    // console.log(formData)
   };
 
   return (
@@ -76,12 +57,12 @@ export default function UpdateInfo({user}: IProps) {
       >
         <DialogTitle>{"Información"}</DialogTitle>
         <DialogContent className="flex flex-col">
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box component="form" noValidate onSubmit={(e: FormEvent<HTMLFormElement>) => {handleSubmit(e); handleClose();}} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="name"
                   required
                   fullWidth
                   label="Nombre(s)"
@@ -115,21 +96,6 @@ export default function UpdateInfo({user}: IProps) {
               </Grid>
             </Grid>
           </Box>
-        {/* <p>Valoración</p>
-            <Rating
-              name="simple-controlled"
-              value={formData.rating}
-              onChange={handleRatingChange}
-            />
-        <TextField
-          label="Comentario"
-          multiline
-          rows={4}
-          name="comment"
-          value={formData.comment}
-          onChange={handleInputChange}
-          className="mt-3 w-72"
-        /> */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} variant="contained" fullWidth className="mx-5 mb-2">Confirmar</Button>

@@ -12,7 +12,7 @@ interface IFormData {
   manager?: string;
   price: number;
   adminCode: string;
-  placeType: string[];
+  placeType: string;
   description: string;
   photos: string[];
 }
@@ -27,7 +27,7 @@ export default function UpdatePlace() {
     manager: '',
     price: 0,
     adminCode: '',
-    placeType: [],
+    placeType: '',
     description: '',
     photos: [],
   });

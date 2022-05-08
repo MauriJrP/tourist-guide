@@ -1,18 +1,10 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import {FormEvent} from 'react';
+import {Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {Link as RouterLink, useNavigate} from 'react-router-dom';
+import {Link as RouterLink} from 'react-router-dom';
+
+import { useForm } from '../../hooks/useForm';
 
 import Copyright from '../../components/Copyright';
 
@@ -24,31 +16,10 @@ interface IFormData {
 }
 
 export default function SignIn() {
-  const [formData, setFormData] = React.useState<IFormData>({
+  const {formData, handleInputChange, handleSubmit} = useForm<IFormData>({
     email: '',
     password: '',
   });
-  const navigate = useNavigate()
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormData((prevState: IFormData) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log(formData)
-    navigate('/home')
-    // const data = new FormData(event.currentTarget);
-    // console.log(data)
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
-  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -68,7 +39,7 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Iniciar sesión
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={(e: FormEvent<HTMLFormElement>) => handleSubmit(e, '/home')} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required

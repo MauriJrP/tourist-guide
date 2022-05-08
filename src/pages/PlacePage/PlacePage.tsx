@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom"
-import { places, comments } from '../../data'
-import {IPlace} from '../../types'
+import { places } from '../../data'
 import Comments from "./components/Comments"
 import Gallery from "./components/Gallery"
 import Main from "./components/Main"

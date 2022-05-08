@@ -1,7 +1,6 @@
-import React from 'react'
 import { Stack, Card,  CardContent, Divider, Rating, Avatar } from '@mui/material';
-import {IUser} from '../../types'
-import {users} from '../../data'
+import { IUser } from '../../types'
+import { users } from '../../data'
 import UpdateInfo from './components/UpdateInfo'
 
 const user = users[0];

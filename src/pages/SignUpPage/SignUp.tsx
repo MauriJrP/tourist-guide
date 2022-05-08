@@ -1,17 +1,9 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import {FormEvent, ChangeEvent} from 'react';
+import { MenuItem, Container, Typography, Box, Grid, Link, TextField, CssBaseline, Button, Avatar } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import MenuItem from '@mui/material/MenuItem';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import {useForm} from '../../hooks/useForm';
 
 import Copyright from '../../components/Copyright';
 
@@ -26,42 +18,21 @@ interface IFormData {
   age: number
 }
 
-const genders = ["Hombre", "Mujer", "No especificar"]
+const genders = ["Hombre", "Mujer", "No especificar"];
+
+const initialState: IFormData = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  gender: '',
+  age: 0,
+}
 
 // type
 
 export default function SignUp() {
-  const [formData, setFormData] = React.useState<IFormData>({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    gender: '',
-    age: 0,
-  });
-
-  const navigate = useNavigate();
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target)
-    const { name, value } = event.target;
-    setFormData((prevState: IFormData) => ({
-      ...prevState,
-      [name]: name === "age" ? parseInt(value) : value
-    }));
-  };
-
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log(formData)
-    navigate('/home')
-    // const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
-  };
+  const {formData, handleInputChange, handleSubmit} = useForm<IFormData>(initialState);
 
   return (
     <ThemeProvider theme={theme}>
@@ -81,7 +52,7 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Registrarse
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={(e: FormEvent<HTMLFormElement>) => handleSubmit(e, '/home')} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -153,7 +124,7 @@ export default function SignUp() {
                   fullWidth
                   label="Edad"
                   value={formData.age}
-                  onChange={handleInputChange}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e, 'number')}
                   type="number"
                 />
               </Grid>

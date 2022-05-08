@@ -1,36 +1,31 @@
-import React from 'react';
-import { useState} from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
+import { useState, forwardRef, ReactElement, Ref } from 'react';
+import {IconButton, Rating, TextField, Slide, DialogTitle, DialogContent, DialogActions, Dialog, Button} from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
-import {IconButton, Rating, TextField} from '@mui/material';
 import GradeIcon from '@mui/icons-material/Grade';
+import {useForm} from '../../../hooks/useForm';
 
 interface IFormData {
   rating: number;
   comment: string;
 }
 
-const Transition = React.forwardRef(function Transition(
+const initialState: IFormData = {
+  rating: 0,
+  comment: '',
+}
+
+const Transition = forwardRef(function Transition(
   props: TransitionProps & {
-    children: React.ReactElement<any, any>;
+    children: ReactElement<any, any>;
   },
-  ref: React.Ref<unknown>,
+  ref: Ref<unknown>,
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function AlertDialogSlide() {
-  const [open, setOpen] = React.useState(false);
-  const [formData, setformData] = useState<IFormData>({
-    rating: 0,
-    comment: '',
-  })
+  const [open, setOpen] = useState(false);
+  const {formData, handleInputChange, handleRatingChange} = useForm<IFormData>(initialState);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -38,23 +33,6 @@ export default function AlertDialogSlide() {
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setformData((prevState: IFormData) => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-
-  const handleRatingChange = (event: React.SyntheticEvent<Element, Event>, newValue: number | null) => {
-    if (newValue) {
-    setformData((prevState: IFormData) => ({
-      ...prevState,
-      rating: newValue
-    }));
-  }
   };
 
   return (

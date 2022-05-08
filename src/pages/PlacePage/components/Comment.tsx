@@ -1,6 +1,5 @@
-import React from 'react'
-import { Stack, Card,  CardContent, Divider, Rating, Avatar } from '@mui/material';
-import {IComment} from '../../../types'
+import {  Card,  CardContent, Rating, Avatar } from '@mui/material';
+import { IComment } from '../../../types'
 
 interface IProps {
   comment: IComment;

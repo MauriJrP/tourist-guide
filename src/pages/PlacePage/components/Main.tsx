@@ -1,6 +1,5 @@
 import { Stack, Card, IconButton, CardContent, Divider, Rating } from '@mui/material';
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
-import GradeIcon from '@mui/icons-material/Grade';
 import {IPlace} from '../../../types'
 import Rate from './Rate';
 
