@@ -1,5 +1,6 @@
 import Button from '@mui/material/Button';
 import {useNavigate} from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 import AccountMenu from './AccountMenu';
 
 const SignInButton = () => {
@@ -17,11 +18,11 @@ const SignInButton = () => {
 }
 
 export default function BasicMenu() {
-  let loggedIn = true;
+  const {auth} = useAuth();
 
   return (
     <>
-      {!loggedIn ? <SignInButton /> : <AccountMenu />}
+      {!auth.loggedIn ? <SignInButton /> : <AccountMenu />}
     </>
   );
 }

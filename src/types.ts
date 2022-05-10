@@ -58,3 +58,8 @@ export interface IUser {
   age: number;
   gender: string;
 }
+
+export interface IAuth {
+  loggedIn: boolean;
+  user?: IUser;
+}

@@ -5,6 +5,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {Link as RouterLink} from 'react-router-dom';
 
 import { useForm } from '../../hooks/useForm';
+import { useAuth } from '../../hooks/useAuth';
 
 import Copyright from '../../components/Copyright';
 
@@ -20,6 +21,9 @@ export default function SignIn() {
     email: '',
     password: '',
   });
+
+  const {login} = useAuth();
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -39,7 +43,7 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Iniciar sesión
           </Typography>
-          <Box component="form" onSubmit={(e: FormEvent<HTMLFormElement>) => handleSubmit(e, '/home')} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={(e: FormEvent<HTMLFormElement>) => { login(formData); handleSubmit(e, '/home') }} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required

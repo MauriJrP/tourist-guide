@@ -11,11 +11,13 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import {useNavigate} from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
+  const {logout} = useAuth();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -32,6 +34,7 @@ export default function AccountMenu() {
 
   const handleSignOutClick = () => {
     handleClose();
+    logout();
     navigate('/sign-in');
   };
 

@@ -98,7 +98,7 @@ export default function AddPlace() {
                   onChange={handleInputChange}
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
@@ -108,7 +108,7 @@ export default function AddPlace() {
                   value={formData.adminCode}
                   onChange={handleInputChange}
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12} sm={6}>
                 <TextField
                 select
