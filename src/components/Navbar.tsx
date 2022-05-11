@@ -9,7 +9,7 @@ export default function Navbar() {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const name = (e.target as HTMLButtonElement).name
     if (name === "Home") navigate("/home")
-    else if (name === "MyList") navigate("/my-list")
+    else if (name === "Plans") navigate("/plans")
     else if (name === "Admin") navigate("/admin")
   };
 
@@ -24,7 +24,7 @@ export default function Navbar() {
       <ButtonGroup variant="text" aria-label="text button group">
         {admin && <Button className="text-white" onClick={handleClick} name="Admin">Admin</Button>}
         <Button className="text-white" onClick={handleClick} name="Home">Inicio</Button>
-        <Button className="text-white" onClick={handleClick} name="MyList">Mi Lista</Button>
+        <Button className="text-white" onClick={handleClick} name="Plans">Planes</Button>
         <Account />
       </ButtonGroup>
     </div>

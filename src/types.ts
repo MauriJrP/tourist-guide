@@ -63,3 +63,11 @@ export interface IAuth {
   loggedIn: boolean;
   user?: IUser;
 }
+
+export interface IPlanCreation {
+  isAddingPlaces: boolean;
+  places: {
+      placeId: number;
+      placeName: string;
+  }[];
+}
