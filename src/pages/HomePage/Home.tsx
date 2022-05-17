@@ -9,6 +9,8 @@ interface IProps {
 }
 
 export default function Home(props: IProps) {
+  
+
   return (
     <div className='bg-white container mx-auto p-2 md:p-10 flex flex-col md:flex-row'>
       <div className="w-full md:w-72 md:pt-5">

@@ -10,30 +10,29 @@ export interface IPlace {
   id: number;
   name: string;
   address: string;
+  phone: string;
   opening_hours: string;
-  contact: string;
   manager?: string;
-  photos: string[];
+  // photos: string[];
   price: number;
   rating: number;
-  placeType?: string[];
-  description?: string;
+  placeType: string;
+  description: string;
 }
 
-export interface IPlaceInfo {
-  id: number;
-  name: string;
-  address: string;
-  opening_hours: string;
-  contact: string;
-  cedula: string;
-  manager?: string;
-  photos: string[];
-  price: number;
-  rating: number;
-  placeType?: string[];
-  description?: string;
-}
+// export interface IPlaceInfo {
+//   id: number;
+//   name: string;
+//   address: string;
+//   phone: string;
+//   opening_hours: string;
+//   manager?: string;
+//   // photos: string[];
+//   price: number;
+//   rating: number;
+//   placeType: string;
+//   description: string;
+// }
 
 export interface IUserComment {
   name: string;
@@ -52,11 +51,12 @@ export interface IUser {
   id: number;
   name: string;
   email: string;
-  photo: string;
+  // photo: string;
   password: string;
   role: string;
   age: number;
   gender: string;
+  muted: boolean;
 }
 
 export interface IAuth {

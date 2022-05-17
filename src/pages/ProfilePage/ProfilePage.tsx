@@ -1,16 +1,19 @@
 import { Stack, Card,  CardContent, Divider, Rating, Avatar } from '@mui/material';
+import { useAuth } from '../../hooks/useAuth';
 import { IUser } from '../../types'
-import { users } from '../../data'
+// import { users } from '../../data'
 import UpdateInfo from './components/UpdateInfo'
 
-const user = users[0];
 
 export default function ProfilePage() {
+  const {auth} = useAuth();
+  const user = auth.user as IUser;
+
   return (
     <Card sx={{ minWidth: 275 }} className="drop-shadow-lg mb-2 m-2 md:w-96 mx-auto md:mt-10">
       <CardContent className="flex flex-col">
         <div className="flex flex-col items-center justify-center">
-          <Avatar src={user.photo} sx={{ width: 240, height: 240 }}/>
+          <Avatar src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F5%2FUser-Profile-PNG-File.png&f=1&nofb=1" sx={{ width: 240, height: 240 }}/>
           <h2 className="mt-8 text-4xl">{user.name}</h2>
           <Divider className="my-2" variant="middle" flexItem/>
         </div>

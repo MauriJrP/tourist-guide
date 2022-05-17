@@ -57,7 +57,7 @@ export default function Searcher() {
             name="price"
             className="mt-3"
             fullWidth
-            label="Máximo"
+            label="Precio Máximo"
             value={formData.price}
             onChange={(e:ChangeEvent<HTMLInputElement>)=> handleInputChange(e, 'number')}
             type="number"

@@ -21,7 +21,7 @@ interface IProps {
 }
 
 export default function PlaceCard({ place }: IProps) {
-  const { id, photos, name, rating, description } = place;
+  const { id, name, rating, description } = place;
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -30,13 +30,13 @@ export default function PlaceCard({ place }: IProps) {
 
   return (
     <Card className="w-full h-96 cursor-pointer" onClick={handleClick}>
-      <CardMedia
+      {/* <CardMedia
         component="img"
         // height="140"
         image={photos[0]}
         alt={name}
         className="h-36"
-      />
+      /> */}
       <CardContent>
         <Rating
           name="read-only"

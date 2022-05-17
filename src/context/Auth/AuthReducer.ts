@@ -3,6 +3,7 @@ import { IAuth, IUser } from "../../types";
 type AuthAction = 
   | {type: 'login', payload: IUser} 
   | {type: 'logout'}
+  | {type: 'signup', payload: IUser}
 
 export const AuthReducer = (state: IAuth, action: AuthAction ) => {
   switch (action.type) {

@@ -7,8 +7,7 @@ interface IFormData {
   name: string;
   address: string;
   openingHours: string;
-  contact: string;
-  cedula: string;
+  phone: string;
   manager?: string;
   price: number;
   adminCode: string;
@@ -21,8 +20,7 @@ const initialState = {
   name: '',
   address: '',
   openingHours: '',
-  contact: '',
-  cedula: '',
+  phone: '',
   manager: '',
   price: 0,
   adminCode: '',
@@ -63,18 +61,9 @@ export default function AddPlace() {
                 <TextField
                   required
                   fullWidth
-                  label="Cedula"
-                  name="cedula"
-                  value={formData.cedula}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <TextField
-                  required
-                  fullWidth
                   label="Horario"
                   name="openingHours"
+                  placeholder='00:00-00:00'
                   value={formData.openingHours}
                   onChange={handleInputChange}
                 />
@@ -83,9 +72,10 @@ export default function AddPlace() {
                 <TextField
                   required
                   fullWidth
-                  label="Contacto"
-                  name="contact"
-                  value={formData.contact}
+                  label="Telefono"
+                  name="phone"
+                  placeholder='Numero a 10 digitos'
+                  value={formData.phone}
                   onChange={handleInputChange}
                 />
               </Grid>
@@ -98,17 +88,6 @@ export default function AddPlace() {
                   onChange={handleInputChange}
                 />
               </Grid>
-              {/* <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="adminCode"
-                  label="Código de administrador"
-                  type="password"
-                  value={formData.adminCode}
-                  onChange={handleInputChange}
-                />
-              </Grid> */}
               <Grid item xs={12} sm={6}>
                 <TextField
                 select
@@ -159,15 +138,3 @@ export default function AddPlace() {
     </>
   )
 }
-
-// Nombre -------
-// Direccion -------
-// Horario -------
-// Contacto -------
-// Cedula -------
-// Gerente -------
-// Precio -------
-// Codigo de administrador -------
-// Tipos -------
-// Descripcion -------
-// Fotos

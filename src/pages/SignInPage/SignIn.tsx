@@ -2,7 +2,7 @@ import {FormEvent} from 'react';
 import {Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {Link as RouterLink} from 'react-router-dom';
+import {Link as RouterLink, useNavigate} from 'react-router-dom';
 
 import { useForm } from '../../hooks/useForm';
 import { useAuth } from '../../hooks/useAuth';
@@ -17,12 +17,20 @@ interface IFormData {
 }
 
 export default function SignIn() {
-  const {formData, handleInputChange, handleSubmit} = useForm<IFormData>({
+  const {formData, handleInputChange} = useForm<IFormData>({
     email: '',
     password: '',
   });
 
-  const {login} = useAuth();
+  const {auth, login} = useAuth();
+  const navigate = useNavigate();
+  
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const result = await login(formData);
+    if (result === "") navigate('/home'); //logged in
+    else alert(result);
+  };
 
 
   return (
@@ -43,7 +51,8 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Iniciar sesión
           </Typography>
-          <Box component="form" onSubmit={(e: FormEvent<HTMLFormElement>) => { login(formData); handleSubmit(e, '/home') }} noValidate sx={{ mt: 1 }}>
+          {/* <Box component="form" onSubmit={(e: FormEvent<HTMLFormElement>) => { login(formData) }} noValidate sx={{ mt: 1 }}> */}
+          <Box component="form" onSubmit={(e: FormEvent<HTMLFormElement>) => handleSubmit(e)} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required

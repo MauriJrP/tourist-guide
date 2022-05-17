@@ -7,7 +7,7 @@ interface IFormData {
   name: string;
   address: string;
   openingHours: string;
-  contact: string;
+  phone: string;
   placeCode: string;
   manager?: string;
   price: number;
@@ -22,7 +22,7 @@ export default function UpdatePlace() {
     name: '',
     address: '',
     openingHours: '',
-    contact: '',
+    phone: '',
     placeCode: '',
     manager: '',
     price: 0,
@@ -97,9 +97,9 @@ export default function UpdatePlace() {
                 <TextField
                   required
                   fullWidth
-                  label="Contacto"
-                  name="contact"
-                  value={formData.contact}
+                  label="Telefono"
+                  name="phone"
+                  value={formData.phone}
                   onChange={handleInputChange}
                 />
               </Grid>
@@ -109,17 +109,6 @@ export default function UpdatePlace() {
                   label="Gerente"
                   name="manager"
                   value={formData.manager}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="adminCode"
-                  label="Código de administrador"
-                  type="password"
-                  value={formData.adminCode}
                   onChange={handleInputChange}
                 />
               </Grid>

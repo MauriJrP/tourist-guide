@@ -12,7 +12,7 @@ export default function PlacePage() {
     place ? (
       <div className="bg-white container mx-auto p-2 md:p-10 flex flex-col">
         <Main place={place} />
-        <Gallery photos={place.photos} />
+        {/* <Gallery photos={place.photos} /> */}
         <Comments />
       </div>
     ) :

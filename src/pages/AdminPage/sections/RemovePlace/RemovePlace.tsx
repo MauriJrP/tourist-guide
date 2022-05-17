@@ -36,7 +36,7 @@ export default function RemovePlace() {
     <>
       <Box component="form"  onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   name="placeCode"
                   required
@@ -45,16 +45,6 @@ export default function RemovePlace() {
                   value={formData.placeCode}
                   onChange={handleInputChange}
                   autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Código de administrador"
-                  name="adminCode"
-                  value={formData.adminCode}
-                  onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={12}>

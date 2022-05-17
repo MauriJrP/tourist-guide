@@ -2,16 +2,16 @@ import {FormEvent, ChangeEvent} from 'react';
 import { MenuItem, Container, Typography, Box, Grid, Link, TextField, CssBaseline, Button, Avatar } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import {useForm} from '../../hooks/useForm';
 
 import Copyright from '../../components/Copyright';
+import { useAuth } from '../../hooks/useAuth';
 
 const theme = createTheme();
 
 interface IFormData {
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
   password: string;
   gender: string;
@@ -21,18 +21,34 @@ interface IFormData {
 const genders = ["Hombre", "Mujer", "No especificar"];
 
 const initialState: IFormData = {
-  firstName: '',
-  lastName: '',
+  name: '',
   email: '',
   password: '',
   gender: '',
   age: 0,
 }
 
+
 // type
 
 export default function SignUp() {
-  const {formData, handleInputChange, handleSubmit} = useForm<IFormData>(initialState);
+  const {formData, handleInputChange} = useForm<IFormData>(initialState);
+  const {signup} = useAuth();
+  const navigate = useNavigate();
+  
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const result = await signup({...formData, gender: getGender(formData.gender)});
+    if (result === "") navigate('/sign-in'); //logged in
+    else alert(result);
+    // alert(result);
+  }
+
+  const getGender = (gender: string) => {
+    if (gender === 'Hombre') return "M"
+    else if (gender === "Mujer") return "F"
+    return "U"
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -52,29 +68,18 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Registrarse
           </Typography>
-          <Box component="form" noValidate onSubmit={(e: FormEvent<HTMLFormElement>) => handleSubmit(e, '/home')} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="name"
                   required
                   fullWidth
-                  label="Nombre(s)"
-                  value={formData.firstName}
+                  label="Nombre"
+                  value={formData.name}
                   onChange={handleInputChange}
                   autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Apellidos"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleInputChange}
-                  autoComplete="family-name"
                 />
               </Grid>
               <Grid item xs={12}>
