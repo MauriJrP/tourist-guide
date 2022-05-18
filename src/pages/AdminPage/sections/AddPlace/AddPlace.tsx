@@ -2,6 +2,7 @@ import {FormEvent, ChangeEvent} from 'react';
 import {Box, Grid, Button, TextField, MenuItem} from '@mui/material';
 import {placeTypes} from '../../../../data';
 import {useForm} from '../../../../hooks/useForm';
+import Gallery from '../../components/Gallery'
 
 interface IFormData {
   name: string;
@@ -125,6 +126,10 @@ export default function AddPlace() {
                   fullWidth
                 />
               </Grid>
+            </Grid>
+            <Grid container spacing={2}>
+              <Gallery />
+              {/* <Gallery /> */}
             </Grid>
             <Button
               type="submit"
