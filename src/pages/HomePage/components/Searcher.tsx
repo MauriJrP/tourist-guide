@@ -1,7 +1,7 @@
 import { MenuItem, Rating, TextField, Grid, Button } from '@mui/material';
 import { ChangeEvent } from 'react';
-import {placeTypes as types, locations} from '../../../data'
 import {useForm} from '../../../hooks/useForm';
+import {usePlaceOptions} from '../../../hooks/usePlaceOptions';
 
 interface IFormData {
   type?: string;
@@ -19,6 +19,7 @@ const initialState: IFormData = {
 
 export default function Searcher() {
   const {formData, handleInputChange, handleRatingChange, handleSubmit} = useForm<IFormData>(initialState);
+  const {placeTypes, locations} = usePlaceOptions();
 
   return (
     <form onSubmit={handleSubmit}  >
@@ -30,9 +31,9 @@ export default function Searcher() {
         onChange={handleInputChange}
         fullWidth
       >
-        {types.map((option) => (
-          <MenuItem key={option} value={option}>
-            {option}
+        {placeTypes.map((placeType) => (
+          <MenuItem key={placeType.idPlaceType} value={placeType.placeType}>
+            {placeType.placeType}
           </MenuItem>
         ))}
       </TextField>
@@ -45,9 +46,9 @@ export default function Searcher() {
         fullWidth
         className="mt-3"
       >
-        {locations.map((option) => (
-          <MenuItem key={option} value={option}>
-            {option}
+        {locations.map((location) => (
+          <MenuItem key={location.idLocation} value={location.location}>
+            {location.location}
           </MenuItem>
         ))}
       </TextField>

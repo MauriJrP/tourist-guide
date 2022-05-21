@@ -17,22 +17,24 @@ export interface IPlace {
   price: number;
   rating: number;
   placeType: string;
+  location: string;
   description: string;
 }
 
-// export interface IPlaceInfo {
-//   id: number;
-//   name: string;
-//   address: string;
-//   phone: string;
-//   opening_hours: string;
-//   manager?: string;
-//   // photos: string[];
-//   price: number;
-//   rating: number;
-//   placeType: string;
-//   description: string;
-// }
+export interface IPlaceType {
+  idPlaceType: number;
+  placeType: string
+}
+
+export interface ILocation {
+  idLocation: number;
+  location: string;
+}
+
+export interface IGallery {
+  name: string;
+  images: never[];
+}
 
 export interface IUserComment {
   name: string;

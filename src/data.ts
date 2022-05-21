@@ -18,6 +18,7 @@ export const places: IPlace[] = [
     price: 0,
     rating: 4,
     placeType: "Comida",
+    location: "Guadalajara",
     description: 'Casa de la Cultura es una de las casas de cultura más importantes de la ciudad de Madrid. Fue fundada en 1892 por el arquitecto y diseñador francés Antoine de Saint-Exupéry, y actualmente es el museo de la cultura de la ciudad. La casa de la cultura es uno de los principales centros culturales de la ciudad, y es uno de los lugares más visitados de la ciudad. La casa de la cultura es uno de los principales centros culturales de la ciudad, y es uno de los lugares más visitados de la ciudad.'
   },
 ]

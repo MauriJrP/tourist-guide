@@ -1,8 +1,11 @@
-import {FormEvent, ChangeEvent} from 'react';
+import {FormEvent, ChangeEvent, useState, useEffect} from 'react';
 import {Box, Grid, Button, TextField, MenuItem} from '@mui/material';
-import {placeTypes} from '../../../../data';
 import {useForm} from '../../../../hooks/useForm';
+import {usePlaceOptions} from '../../../../hooks/usePlaceOptions';
 import Gallery from '../../components/Gallery'
+
+import {IGallery, IPlaceType, ILocation} from '../../../../types';
+import axios from 'axios';
 
 interface IFormData {
   name: string;
@@ -11,10 +14,9 @@ interface IFormData {
   phone: string;
   manager?: string;
   price: number;
-  adminCode: string;
   placeType: string;
+  location: string;
   description: string;
-  photos: string[];
 }
 
 const initialState = {
@@ -24,18 +26,64 @@ const initialState = {
   phone: '',
   manager: '',
   price: 0,
-  adminCode: '',
   placeType: '',
+  location: '',
   description: '',
-  photos: [],
 }
 
 export default function AddPlace() {
-  const {formData, handleInputChange, handleSubmit} = useForm<IFormData>(initialState);
+  const {formData, handleInputChange} = useForm<IFormData>(initialState);
+  const [galleries, setGalleries] = useState<IGallery[]>([] as IGallery[]);
+
+  const {placeTypes, locations} = usePlaceOptions();
+
+  
+  const addNewGallery = () => {
+    setGalleries((prevState: IGallery[]) => [...prevState, {name:"", images: []}]);
+  }
+  
+  const handleGalleryChange = (index: number, gallery: IGallery) => {
+    setGalleries((prevState: IGallery[]) => {
+      const newState = [...prevState];
+      newState[index] = gallery;
+      return newState;
+    });
+  }
+  
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    removeVoidGalleries();
+    if (getTotalImages() < 3) {
+      alert("Almenos 3 fotos deben ser registradas")
+      return;
+    }
+
+    const res = createPlace();
+  }
+  
+  const removeVoidGalleries = () =>
+    setGalleries((prevState) => prevState.filter((gallery) => gallery.images.length >= 1));
+
+  const getTotalImages = () =>
+    galleries.reduce((n, gallery) => n += gallery.images.length, 0);
+
+  const createPlace = async () => {
+    const url = `${process.env.REACT_APP_API_URL}/places/create`;
+    const config = {
+      headers: {
+        'Content-type': 'application/json'
+      }
+    }
+
+    const res = await (await axios.post(url, formData, config)).data[0];
+    if (res.message) alert(res.message);
+    else console.log(res);
+    
+  }
 
   return (
     <>
-      <Box component="form"  onSubmit={(e: FormEvent<HTMLFormElement>) => handleSubmit(e, '/home')} sx={{ mt: 3 }}>
+      <Box component="form"  onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={4}>
                 <TextField
@@ -97,19 +145,35 @@ export default function AddPlace() {
                 value={formData.placeType}
                 onChange={handleInputChange}
                 fullWidth
-              >
-                {placeTypes.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </TextField>
+                >
+                  {placeTypes.map((placeType) => (
+                    <MenuItem key={placeType.idPlaceType} value={placeType.placeType}>
+                      {placeType.placeType}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                select
+                label="Municipio"
+                name="location"
+                value={formData.location}
+                onChange={handleInputChange}
+                fullWidth
+                >
+                  {locations.map((location) => (
+                    <MenuItem key={location.idLocation} value={location.location}>
+                      {location.location}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   name="price"
                   fullWidth
-                  label="Costo"
+                  label="Costo promedio por visita"
                   value={formData.price}
                   onChange={(e:ChangeEvent<HTMLInputElement>) => handleInputChange(e, 'number')}
                   type="number"
@@ -119,6 +183,7 @@ export default function AddPlace() {
                 <TextField
                   label="Descripción"
                   multiline
+                  required
                   rows={4}
                   name="description"
                   value={formData.description}
@@ -128,8 +193,10 @@ export default function AddPlace() {
               </Grid>
             </Grid>
             <Grid container spacing={2}>
-              <Gallery />
-              {/* <Gallery /> */}
+              <Grid item xs={12}>
+                <Button variant="contained" color="secondary" sx={{ mt: 3 }} onClick={addNewGallery}> Agregar Galeria   </Button>
+              </Grid>
+              {galleries.map((gallery, index) => <Gallery key={index} gallery={gallery} setGallery={(gallery) => handleGalleryChange(index, gallery)}/>)}
             </Grid>
             <Button
               type="submit"

@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const initialState: IAuth = {
-  loggedIn: false,
+  loggedIn: true,
 }
 
 export const AuthProvider = ({children}: IProps) => {
