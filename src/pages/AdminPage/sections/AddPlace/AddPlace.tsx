@@ -32,7 +32,7 @@ const initialState = {
 }
 
 export default function AddPlace() {
-  const {formData, handleInputChange} = useForm<IFormData>(initialState);
+  const {formData, handleInputChange, resetState} = useForm<IFormData>(initialState);
   const [galleries, setGalleries] = useState<IGallery[]>([] as IGallery[]);
 
   const {placeTypes, locations} = usePlaceOptions();
@@ -50,7 +50,7 @@ export default function AddPlace() {
     });
   }
   
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     removeVoidGalleries();
     if (getTotalImages() < 3) {
@@ -58,7 +58,12 @@ export default function AddPlace() {
       return;
     }
 
-    const res = createPlace();
+    const placeId = await createPlace();
+    if (placeId !== -1) {
+      await uploadGalleries(placeId); // Place inserted on db correctly
+      // resetState(initialState);
+      // setGalleries([]);
+    }
   }
   
   const removeVoidGalleries = () =>
@@ -68,7 +73,7 @@ export default function AddPlace() {
     galleries.reduce((n, gallery) => n += gallery.images.length, 0);
 
   const createPlace = async () => {
-    const url = `${process.env.REACT_APP_API_URL}/places/create`;
+    const url = `${process.env.REACT_APP_API_URL}/places/place/create`;
     const config = {
       headers: {
         'Content-type': 'application/json'
@@ -76,9 +81,33 @@ export default function AddPlace() {
     }
 
     const res = await (await axios.post(url, formData, config)).data[0];
-    if (res.message) alert(res.message);
-    else console.log(res);
-    
+    if (res.message) {
+      alert(res.message);
+      return -1; 
+    }
+    else return res.insertedId;
+  }
+
+  const uploadGalleries = async (placeId: number) => {
+    const url = `${process.env.REACT_APP_API_URL}/places/place/addGallery`;
+    const config = {
+      headers: {
+        'Content-type': 'multipart/form-data'
+      }
+    }
+
+    galleries.forEach(async (gallery) => {
+      const formData: FormData = new FormData();
+      gallery.images.forEach((image: any) => formData.append('images', image.file));
+      formData.append('name', gallery.name);
+      formData.append('placeId', placeId.toString());
+      const data = await (await axios.post(url, formData, config)).data[0];
+    })
+    // const formData: FormData = new FormData();
+    // galleries[0].images.forEach((image: any) => formData.append('images', image.file));
+    // formData.append('name', galleries[0].name);
+    // formData.append('placeId', placeId.toString());
+    // const data = await (await axios.post(url, formData, config)).data[0];
   }
 
   return (

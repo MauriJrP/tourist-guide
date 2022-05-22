@@ -60,7 +60,8 @@ export default function ImageUploader({ images, setImages }: IProps) {
               ))}
             </div>
             <Button 
-              variant="contained" 
+              variant="contained"
+              color="success" 
               style={isDragging ? { color: "red" } : undefined}
               onClick={onImageUpload}
               {...dragProps}>

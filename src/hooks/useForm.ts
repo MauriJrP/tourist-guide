@@ -36,10 +36,13 @@ export const useForm = <T>( initialState:T ) => {
     // const data = new FormData(event.currentTarget);
   };
 
+  const resetState = (initialState: T) => setFormData(initialState);
+
   return {
     formData,
     handleInputChange,
     handleRatingChange,
     handleSubmit,
+    resetState
   }
 }
