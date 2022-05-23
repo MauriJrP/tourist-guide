@@ -9,7 +9,7 @@ export default function AdminPage() {
         <Button>
           <NavLink to="add-place" className={({ isActive }) => isActive ? 'text-black ' : 'hover:text-gray-500'}>Agregar Lugar</NavLink>
         </Button>
-        <Button>
+        {/* <Button>
           <NavLink to="update-place" className={({ isActive }) => isActive ? 'text-black ' : 'hover:text-gray-500'}>Actualizar Lugar</NavLink>
         </Button>
         <Button>
@@ -17,7 +17,7 @@ export default function AdminPage() {
         </Button>
         <Button>
           <NavLink to="user-sanction" className={({ isActive }) => isActive ? 'text-black ' : 'hover:text-gray-500'}>Sancionar Usuario</NavLink>
-        </Button>
+        </Button> */}
       </ButtonGroup>
 
       <Outlet />

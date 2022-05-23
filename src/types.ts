@@ -42,12 +42,13 @@ export interface IGalleryUpload {
 }
 
 export interface IUserComment {
+  idUser: number;
   name: string;
-  photo: string;
+  // photo: string;
 }
 
 export interface IComment {
-  id: number;
+  idComment: number;
   user: IUserComment;
   date: string;
   rating: number;

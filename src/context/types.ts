@@ -30,5 +30,7 @@ export interface PlansContextProps {
 export interface PlaceContextProps {
   place: IPlace;
   comments: IComment[];
-  loadPlace: (idPlace: string) => Promise<void> 
+  loadPlace: (idPlace: string) => Promise<void>;
+  createComment: (rating: number, comment: string, idUser: number, idPlace: number) => Promise<void>;
+  deleteComment: (idComment: number, idPlace: number) => Promise<void>;
 }

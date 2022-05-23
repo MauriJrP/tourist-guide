@@ -3,6 +3,10 @@ import { Rating, TextField, Slide, DialogTitle, DialogContent, DialogActions, Di
 import { TransitionProps } from '@mui/material/transitions';
 import GradeIcon from '@mui/icons-material/Grade';
 import {useForm} from '../../../hooks/useForm';
+import { usePlace } from '../../../hooks/usePlace';
+import { useAuth } from '../../../hooks/useAuth';
+import { IUser } from '../../../types';
+import { useParams } from 'react-router-dom';
 
 interface IFormData {
   rating: number;
@@ -26,6 +30,9 @@ const Transition = forwardRef(function Transition(
 export default function AlertDialogSlide() {
   const [open, setOpen] = useState(false);
   const {formData, handleInputChange, handleRatingChange} = useForm<IFormData>(initialState);
+  const {createComment} = usePlace();
+  const {auth} = useAuth();
+  const { id } = useParams();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -34,6 +41,11 @@ export default function AlertDialogSlide() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleSubmit = () => {
+    createComment(formData.rating, formData.comment, (auth.user as IUser).idUser, parseInt(id as string));
+    handleClose();
+  }
 
   return (
     <div>
@@ -67,7 +79,7 @@ export default function AlertDialogSlide() {
         />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} variant="contained" fullWidth className="mx-5 mb-2">Confirmar</Button>
+          <Button onClick={handleSubmit} variant="contained" fullWidth className="mx-5 mb-2">Confirmar</Button>
         </DialogActions>
       </Dialog>
     </div>
