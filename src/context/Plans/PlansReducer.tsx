@@ -1,4 +1,3 @@
-import { places } from "../../data";
 import { IPlanCreation, IUser } from "../../types";
 
 interface IPlaceInfo {

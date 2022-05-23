@@ -1,5 +1,5 @@
 import { useState, forwardRef, ReactElement, Ref } from 'react';
-import {IconButton, Rating, TextField, Slide, DialogTitle, DialogContent, DialogActions, Dialog, Button} from '@mui/material';
+import { Rating, TextField, Slide, DialogTitle, DialogContent, DialogActions, Dialog, Button} from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import GradeIcon from '@mui/icons-material/Grade';
 import {useForm} from '../../../hooks/useForm';
@@ -37,9 +37,10 @@ export default function AlertDialogSlide() {
 
   return (
     <div>
-      <IconButton aria-label="Calificar" onClick={handleClickOpen} >
-        <GradeIcon />
-      </IconButton>
+      <Button variant="contained" onClick={handleClickOpen} className="text-sm flex items-center gap-1">
+        <GradeIcon/>
+        <p>Calificar</p>
+      </Button>
       <Dialog
         open={open}
         TransitionComponent={Transition}

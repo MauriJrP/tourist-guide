@@ -1,27 +1,4 @@
-import {IPlace, IComment, IUser} from './types';
-
-export const places: IPlace[] = [
-  {
-    id: 1,
-    name: 'Casa de la Cultura',
-    address: 'Calle de la Cultura, 7, 28015, Madrid',
-    opening_hours: '10:00 - 20:30',
-    phone: '958245983',
-    manager: 'Juan Carlos',
-    // photos: [
-    //   "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fhicarquitectura.com%2Fwp-content%2Fuploads%2F2012%2F12%2FCasa-de-cultura-i-biblioteca_1.jpg&f=1&nofb=1",
-    //   "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fhicarquitectura.com%2Fwp-content%2Fuploads%2F2012%2F12%2FCasa-de-cultura-i-biblioteca_1.jpg&f=1&nofb=1",
-    //   "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fhicarquitectura.com%2Fwp-content%2Fuploads%2F2012%2F12%2FCasa-de-cultura-i-biblioteca_1.jpg&f=1&nofb=1",
-    //   "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fhicarquitectura.com%2Fwp-content%2Fuploads%2F2012%2F12%2FCasa-de-cultura-i-biblioteca_1.jpg&f=1&nofb=1",
-    //   "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fhicarquitectura.com%2Fwp-content%2Fuploads%2F2012%2F12%2FCasa-de-cultura-i-biblioteca_1.jpg&f=1&nofb=1",
-    //   "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fhicarquitectura.com%2Fwp-content%2Fuploads%2F2012%2F12%2FCasa-de-cultura-i-biblioteca_1.jpg&f=1&nofb=1"],
-    price: 0,
-    rating: 4,
-    placeType: "Comida",
-    location: "Guadalajara",
-    description: 'Casa de la Cultura es una de las casas de cultura más importantes de la ciudad de Madrid. Fue fundada en 1892 por el arquitecto y diseñador francés Antoine de Saint-Exupéry, y actualmente es el museo de la cultura de la ciudad. La casa de la cultura es uno de los principales centros culturales de la ciudad, y es uno de los lugares más visitados de la ciudad. La casa de la cultura es uno de los principales centros culturales de la ciudad, y es uno de los lugares más visitados de la ciudad.'
-  },
-]
+import { IComment, IUser} from './types';
 
 export const comments: IComment[] = [
   {

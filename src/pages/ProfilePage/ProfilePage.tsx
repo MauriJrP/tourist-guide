@@ -18,13 +18,14 @@ export default function ProfilePage() {
           <Divider className="my-2" variant="middle" flexItem/>
         </div>
           <div className="flex flex-col p-2">
-            <p className="ml-2 text-gray-700">{user.email}</p>
-            <p className="ml-2 text-gray-700">Correo: {user.age}</p>
-            <p className="ml-2 text-gray-700">Edad: {user.gender}</p>
+            <p className="ml-2 text-gray-700">Correo: {user.email}</p>
+            <p className="ml-2 text-gray-700">Edad: {user.age}</p>
             <p className="ml-2 text-gray-700">Password: {user.password}</p>
+            <p className="ml-2 text-gray-700">Genero: {user.gender}</p>
             <p className="ml-2 text-gray-700">Rol: {user.role}</p>
+            {/* <p className="ml-2 text-gray-700">Rol: {user.}</p> */}
           </div>
-          <UpdateInfo user={user}/>
+          <UpdateInfo/>
       </CardContent>
     </Card>
   )

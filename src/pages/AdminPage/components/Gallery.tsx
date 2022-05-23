@@ -1,7 +1,7 @@
 import {Grid, TextField} from '@mui/material'
 import { useState, ChangeEvent } from 'react';
 import ImageUploader from '../../../components/ImageUploader'
-import {IGallery} from '../../../types'
+import {IGalleryUpload} from '../../../types'
 
 interface formData {
   name: string;
@@ -9,8 +9,8 @@ interface formData {
 }
 
 interface IProps {
-  gallery: IGallery;
-  setGallery: (gallery: IGallery) => void;
+  gallery: IGalleryUpload;
+  setGallery: (gallery: IGalleryUpload) => void;
 }
 
 export default function Gallery ({gallery, setGallery}: IProps) {

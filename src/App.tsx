@@ -15,6 +15,7 @@ import SignIn from './pages/SignInPage/SignIn';
 import SignUp from './pages/SignUpPage/SignUp';
 import { ProtectedRoutes } from './ProtectedRoutes';
 import { PlansProvider } from './context/Plans/PlansProvider';
+import { PlaceProvider } from './context/Place/PlaceProvider';
 
 
 export default function App() {
@@ -22,26 +23,28 @@ export default function App() {
     <Router>
       <AuthProvider>
         <PlansProvider>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Navigate to="/home" />} />
-            <Route path="/tourist-guide" element={<Navigate to="/home" />} />
-            <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/sign-up" element={<SignUp />} />
+          <PlaceProvider>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Navigate to="/home" />} />
+              <Route path="/tourist-guide" element={<Navigate to="/home" />} />
+              <Route path="/sign-in" element={<SignIn />} />
+              <Route path="/sign-up" element={<SignUp />} />
 
-            <Route path="/home" element={<Home/>} />
-            <Route element={<ProtectedRoutes />} >
-              <Route path="/plans" element={<PlansPage/>}/>
-              <Route path="/place/:id" element={<PlacePage />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/admin/*" element={<AdminPage />}>
-                <Route path="add-place" element={<AddPlace />} />
-                <Route path="update-place" element={<UpdatePlace />} />
-                <Route path="remove-place" element={<RemovePlace />} />
-                <Route path="user-sanction" element={<UserSanction />} />
+              <Route path="/home" element={<Home/>} />
+              <Route element={<ProtectedRoutes />} >
+                <Route path="/plans" element={<PlansPage/>}/>
+                <Route path="/place/:id" element={<PlacePage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/admin/*" element={<AdminPage />}>
+                  <Route path="add-place" element={<AddPlace />} />
+                  <Route path="update-place" element={<UpdatePlace />} />
+                  <Route path="remove-place" element={<RemovePlace />} />
+                  <Route path="user-sanction" element={<UserSanction />} />
+                </Route>
               </Route>
-            </Route>
-          </Routes>
+            </Routes>
+          </PlaceProvider>
         </PlansProvider>
       </AuthProvider>
     </Router>

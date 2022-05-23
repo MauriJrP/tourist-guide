@@ -24,7 +24,7 @@ export default function Navbar() {
       <ButtonGroup variant="text" aria-label="text button group">
         {admin && <Button className="text-white" onClick={handleClick} name="Admin">Admin</Button>}
         <Button className="text-white" onClick={handleClick} name="Home">Inicio</Button>
-        <Button className="text-white" onClick={handleClick} name="Plans">Planes</Button>
+        {/* <Button className="text-white" onClick={handleClick} name="Plans">Planes</Button> */}
         <Account />
       </ButtonGroup>
     </div>

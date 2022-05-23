@@ -4,7 +4,7 @@ import {useForm} from '../../../../hooks/useForm';
 import {usePlaceOptions} from '../../../../hooks/usePlaceOptions';
 import Gallery from '../../components/Gallery'
 
-import {IGallery, IPlaceType, ILocation} from '../../../../types';
+import {IGalleryUpload, IPlaceType, ILocation} from '../../../../types';
 import axios from 'axios';
 
 interface IFormData {
@@ -33,17 +33,17 @@ const initialState = {
 
 export default function AddPlace() {
   const {formData, handleInputChange, resetState} = useForm<IFormData>(initialState);
-  const [galleries, setGalleries] = useState<IGallery[]>([] as IGallery[]);
+  const [galleries, setGalleries] = useState<IGalleryUpload[]>([] as IGalleryUpload[]);
 
   const {placeTypes, locations} = usePlaceOptions();
 
   
   const addNewGallery = () => {
-    setGalleries((prevState: IGallery[]) => [...prevState, {name:"", images: []}]);
+    setGalleries((prevState: IGalleryUpload[]) => [...prevState, {name:"", images: []}]);
   }
   
-  const handleGalleryChange = (index: number, gallery: IGallery) => {
-    setGalleries((prevState: IGallery[]) => {
+  const handleGalleryChange = (index: number, gallery: IGalleryUpload) => {
+    setGalleries((prevState: IGalleryUpload[]) => {
       const newState = [...prevState];
       newState[index] = gallery;
       return newState;

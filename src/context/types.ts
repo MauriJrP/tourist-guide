@@ -1,4 +1,4 @@
-import { IAuth, IPlanCreation } from "../types"
+import { IAuth, IPlanCreation, IPlace, IComment } from "../types"
 
 export interface ICredentials {
   email: string,
@@ -18,10 +18,17 @@ export interface AuthContextProps {
   login: (user: ICredentials) => Promise<string>,
   logout: () => void,
   signup: (user: INewUser) => Promise<string>,
+  updateUser: (name: string, email: string, password: string) => Promise<void>,
 }
 
 
 export interface PlansContextProps {
   planCreation: IPlanCreation;
   addPlaces: () => void;
+}
+
+export interface PlaceContextProps {
+  place: IPlace;
+  comments: IComment[];
+  loadPlace: (idPlace: string) => Promise<void> 
 }

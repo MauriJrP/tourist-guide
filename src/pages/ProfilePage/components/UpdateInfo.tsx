@@ -3,18 +3,13 @@ import { useForm } from '../../../hooks/useForm';
 import { Box, Grid, TextField, DialogActions, DialogContent, DialogTitle, Slide, Dialog, Button } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import { IUser } from '../../../types';
+import { useAuth } from '../../../hooks/useAuth';
 
 interface IFormData {
   name: string;
   email: string;
   password: string;
 }
-
-interface IProps {
-  user: IUser;
-}
-
-
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -26,14 +21,19 @@ const Transition = forwardRef(function Transition(
 });
 
 
-export default function UpdateInfo({user}: IProps) {
+export default function UpdateInfo() {
   const [open, setOpen] = useState(false);
+  const {auth, updateUser} = useAuth();
+  const user = auth.user as IUser;
+  // console.log(user);
+
   const initialState: IFormData = {
     name: user.name,
     email: user.email,
     password: user.password,
   }
-  const {formData, handleInputChange, handleSubmit} = useForm<IFormData>(initialState);
+  const {formData, handleInputChange} = useForm<IFormData>(initialState);
+  
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,6 +42,13 @@ export default function UpdateInfo({user}: IProps) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleSubmit = () => {
+    // e.preventDefault();
+    // console.log("test")
+    updateUser(formData.name, formData.email, formData.password);
+    handleClose();
+  }
 
   return (
     <div>
@@ -57,7 +64,7 @@ export default function UpdateInfo({user}: IProps) {
       >
         <DialogTitle>{"Información"}</DialogTitle>
         <DialogContent className="flex flex-col">
-        <Box component="form" noValidate onSubmit={(e: FormEvent<HTMLFormElement>) => {handleSubmit(e); handleClose();}} sx={{ mt: 3 }}>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -98,7 +105,7 @@ export default function UpdateInfo({user}: IProps) {
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} variant="contained" fullWidth className="mx-5 mb-2">Confirmar</Button>
+          <Button onClick={handleSubmit} variant="contained" fullWidth className="mx-5 mb-2">Confirmar</Button>
         </DialogActions>
       </Dialog>
     </div>

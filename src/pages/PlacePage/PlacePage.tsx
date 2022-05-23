@@ -1,18 +1,25 @@
 import { useParams } from "react-router-dom"
-import { places } from '../../data'
 import Comments from "./components/Comments"
 import Gallery from "./components/Gallery"
 import Main from "./components/Main"
+import {IPlace} from '../../types'
+import { usePlace } from "../../hooks/usePlace"
+import { useEffect } from "react"
 
 export default function PlacePage() {
-  const { id } = useParams()
-  const place = places.find(p => id && p.id === parseInt(id))
+  const { id } = useParams();
+  const {loadPlace, place, comments} = usePlace();
+
+  useEffect(() => {
+    loadPlace(id as string);
+  }, [])
 
   return (
-    place ? (
+    place.name ? (
       <div className="bg-white container mx-auto p-2 md:p-10 flex flex-col">
-        <Main place={place} />
+        <Main />
         {/* <Gallery photos={place.photos} /> */}
+        {place.galleries.map((gallery, i) => <Gallery key={i} name={gallery.name} photos={gallery.images}/>)}
         <Comments />
       </div>
     ) :

@@ -7,18 +7,18 @@
 // }
 
 export interface IPlace {
-  id: number;
+  idPlace: number;
   name: string;
   address: string;
   phone: string;
-  opening_hours: string;
+  openingHours: string;
   manager?: string;
-  // photos: string[];
   price: number;
   rating: number;
   placeType: string;
   location: string;
   description: string;
+  galleries: IGallery[];
 }
 
 export interface IPlaceType {
@@ -32,6 +32,11 @@ export interface ILocation {
 }
 
 export interface IGallery {
+  name: string;
+  images: string[];
+}
+
+export interface IGalleryUpload {
   name: string;
   images: never[];
 }
@@ -50,7 +55,7 @@ export interface IComment {
 }
 
 export interface IUser {
-  id: number;
+  idUser: number;
   name: string;
   email: string;
   // photo: string;
