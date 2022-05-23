@@ -2,7 +2,7 @@ import { Divider, Pagination } from "@mui/material";
 import Searcher from "./components/Searcher";
 import PlaceCard from "./components/PlaceCard";
 // import {places} from "../../data"
-import {IPlace} from "./types";
+import {IFilters, IPlace} from "./types";
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 
@@ -21,10 +21,34 @@ export default function Home() {
     fetchPlaces();
   }, [])
 
+  const search = (filters: IFilters) => {
+    const url = `${process.env.REACT_APP_API_URL}/places/page/${page}`;
+    const config = {
+      headers: {
+        'Content-type': 'application/json'
+      }
+    }
+    const body = {...filters};
+    if (filters.price && filters.price >= 100000) {
+      alert("Precio demasiado alto");
+      return;
+    }
+
+    const fetchPlaces = async () => {
+      console.log("test")
+      const res = await (await axios.post(url, body, config)).data[0];
+      if (res.message === "ok")
+        setPlaces(res.places);
+      else alert(res.message)
+    }
+
+    fetchPlaces();
+  }
+
   return (
     <div className='bg-white container mx-auto p-2 md:p-10 flex flex-col md:flex-row'>
       <div className="w-full md:w-72 md:pt-5">
-        <Searcher />
+        <Searcher search={search}/>
       </div>
 
       <Divider orientation="vertical" variant="middle" flexItem className="hidden mx-10 md:inline-flex"/>

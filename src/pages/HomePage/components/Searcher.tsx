@@ -1,7 +1,9 @@
 import { MenuItem, Rating, TextField, Grid, Button } from '@mui/material';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, FormEvent } from 'react';
 import {useForm} from '../../../hooks/useForm';
 import {usePlaceOptions} from '../../../hooks/usePlaceOptions';
+import { ILocation, IPlaceType } from '../../../types';
+import { IFilters } from '../types';
 
 interface IFormData {
   type?: string;
@@ -17,9 +19,28 @@ const initialState: IFormData = {
   rating: 0,
 }
 
-export default function Searcher() {
-  const {formData, handleInputChange, handleRatingChange, handleSubmit} = useForm<IFormData>(initialState);
+interface IProps {
+  search: (filters: IFilters) => void
+}
+
+export default function Searcher({search}: IProps) {
+  const {formData, handleInputChange, handleRatingChange} = useForm<IFormData>(initialState);
   const {placeTypes, locations} = usePlaceOptions();
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (formData === initialState) return; //No filters applied
+    // console.log(formData);
+    const filters: IFilters = {};
+    if (formData.price !== initialState.price) filters.price = formData.price
+    if (formData.rating !== initialState.rating) filters.rating = formData.rating
+    if (formData.type !== initialState.type)
+      filters.idPlaceType = (placeTypes.find(pt => pt.placeType === formData.type) as IPlaceType).idPlaceType
+    if (formData.location !== initialState.location)
+      filters.idLocation = (locations.find(location => location.location === formData.location) as ILocation).idLocation
+    // console.log(filters)
+    search(filters);
+  }
 
   return (
     <form onSubmit={handleSubmit}  >
